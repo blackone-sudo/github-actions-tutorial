@@ -1,6 +1,6 @@
 name: Actions Workflow
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   run-github-actions:
@@ -10,8 +10,14 @@ jobs:
         run: |
           pwd
           ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo “${{ gitHub.token }}” 
+          # git clone git@github:$GITHUB_REPOSITORY 
+          # git checkout $GITHUB_SHA
       - name: Checkout
-        uses: actions/checkout@v1 #This will checout into the commit in our repository
+        uses: actions/checkout@v1 #This will checout your latest commit in our repository
       - name: List Files After Checkout # This will list working directory in VM after actions checkout
         run: |
           pwd
